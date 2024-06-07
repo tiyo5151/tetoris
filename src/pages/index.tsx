@@ -26,9 +26,13 @@ const Home = () => {
   ]);
   const mino = [0, 1, 2, 3, 4, 5, 6];
 
-  const predownmino = (event: React.KeyboardEvent) => {
+  const movemino = (event: React.KeyboardEvent) => {
     if (event.key === 'ArrowDown') {
       downmino(1, 1);
+    } else if (event.key === 'Arrowleft') {
+      leftmino();
+    } else if (event.key === 'Arrowright') {
+      rightmino();
     }
   };
 
@@ -39,8 +43,10 @@ const Home = () => {
     setboard(newboard);
   };
 
+  const leftmino = (x: number, y: number) => {};
+
   return (
-    <div className={styles.container} tabIndex={0} onKeyDown={predownmino}>
+    <div className={styles.container} tabIndex={0} onKeyDown={movemino}>
       <div className={styles.board}>
         <div className={styles.gameboard}>
           {board.map((row: number[], y: number) => (
