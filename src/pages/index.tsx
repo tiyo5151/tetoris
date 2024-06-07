@@ -30,9 +30,9 @@ const Home = () => {
     if (event.key === 'ArrowDown') {
       downmino(1, 1);
     } else if (event.key === 'Arrowleft') {
-      leftmino();
+      leftmino(1, 1);
     } else if (event.key === 'Arrowright') {
-      rightmino();
+      rightmino(1, 1);
     }
   };
 
@@ -43,7 +43,19 @@ const Home = () => {
     setboard(newboard);
   };
 
-  const leftmino = (x: number, y: number) => {};
+  const leftmino = (x: number, y: number) => {
+    const newboard = structuredClone(board);
+    newboard[y][x] = mino[0];
+    newboard[y][x - 1] = mino[2];
+    setboard(newboard);
+  };
+
+  const rightmino = (x: number, y: number) => {
+    const newboard = structuredClone(board);
+    newboard[y][x] = mino[0];
+    newboard[y][x + 1] = mino[3];
+    setboard(newboard);
+  };
 
   return (
     <div className={styles.container} tabIndex={0} onKeyDown={movemino}>
@@ -53,7 +65,23 @@ const Home = () => {
             <div key={y} className={styles.row}>
               {row.map((cell: number, x: number) => (
                 <div key={x} className={styles.cell}>
-                  <div className={board[y][x] === 1 ? styles.redblock : undefined} />
+                  <div
+                    className={
+                      board[y][x] === 1
+                        ? styles.redblock
+                        : board[y][x] === 2
+                          ? styles.mizuiroblock
+                          : board[y][x] === 3
+                            ? styles.purpleblock
+                            : board[y][x] === 4
+                              ? styles.blueblock
+                              : board[y][x] === 5
+                                ? styles.orangeblock
+                                : board[y][x] === 6
+                                  ? styles.limeblock
+                                  : undefined
+                    }
+                  />
                 </div>
               ))}
             </div>
